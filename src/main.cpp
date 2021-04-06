@@ -1,68 +1,104 @@
+#include <functional>
 #include <exception>
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 
-void printWelcome(const std::vector<std::string>& algos)
-{
-	std::cout << "Choose which algorithm to test\n";
-	std::cout << "Use a number from 0 to " << algos.size() - 1 << "\n\n";
+#include "binary_search.h"
 
-	for (size_t i = 0; i < algos.size(); i++)
+namespace app
+{
+	struct Algo
 	{
-		std::cout << i << " : " << algos.at(i) << "\n";
-	}
-}
+		Algo() {};
+		Algo(
+			std::string name,
+			std::function<std::vector<std::string>()> callback) :
+			m_name(name),
+			m_callbackFn(callback)
+		{};
 
-int processInput()
-{
-	std::string input;
-	std::cin >> input;
-
-	for (size_t i = 0; i < input.size(); i++)
-	{
-		if (!(std::isdigit(input[i])))
-			return -1;
-	}
-
-	return (std::stoi(input));
-}
-
-void executeAlgo(const std::vector<std::string>& algos, int input)
-{
-	std::cout << "\nExecuing algorithm " << algos.at(input) << "...\n";
-
-	switch (input)
-	{
-	case 0:
-		std::cout << "Binary search";
-		break;
-	case 1:
-		std::cout << "Other";
-		break;
-
-	default:
-		break;
-	}
-
-	std::cin.get();
-}
-
-int run(int argc, char* argv[])
-{
-	std::vector<std::string> algos{
-		"Binary search", "Stuff"
+		std::string m_name;
+		std::function<std::vector<std::string>()> m_callbackFn;
 	};
 
-	while (true)
+	typedef std::map<std::string, Algo> Algo_Map;
+
+	void printHelp(Algo_Map& algos)
 	{
-		printWelcome(algos);
+		std::cout <<
+			"\n\nUse the following arguments to test each algorithm:\n";
+		std::cout <<
+			"\n\tKey\tAlgorithm\n\t----------------------";
 
-		auto input = processInput();
-		if (input < 0)
-			continue;
+		for (auto& algo : algos)
+		{
+			std::cout <<
+				"\n\t" << algo.first << "\t" << algo.second.m_name;
+		}
 
-		executeAlgo(algos, input);
+		std::cout << "\n\n";
+	}
+
+	Algo_Map initAlgos()
+	{
+		Algo_Map algos;
+
+		/*auto testFn = []() {
+			std::vector<std::string> ret{ "test" };
+			return ret;
+		};*/
+
+		algos.insert({
+			"0",
+			Algo("Binary search",binary_search::return_result) });
+
+		return algos;
+	}
+
+	int run(int argc, char* argv[])
+	{
+		auto algos = initAlgos();
+
+		if (argc != 2)
+		{
+			std::cout <<
+				"\n\nInvalid argument count. Use argument \"help\" for clarification\n";
+			return 1;
+		}
+
+		auto argument = std::string(argv[1]);
+		if (argument == "help")
+		{
+			printHelp(algos);
+			return 0;
+		}
+
+		if (algos.count(argument) == 0)
+		{
+			std::cout << "\n\nInvalid argument. Use argument \"help\" for clarification\n\n";
+			return 1;
+		}
+		else
+		{
+			std::cout <<
+				"\n\n-------- Executing tests for algorithm " <<
+				algos[argument].m_name << " ---------\n";
+
+			auto results = algos[argument].m_callbackFn();
+
+			for (auto& result : results)
+			{
+				std::cout << "\n\t" << result;
+			}
+
+			std::cout <<
+				"\n\n-------- Finished tests for algorithm " <<
+				algos[argument].m_name << " ---------\n";
+		}
+
+		return 0;
 	}
 }
 
@@ -70,7 +106,7 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-		run(argc, argv);
+		app::run(argc, argv);
 		return 0;
 	}
 	catch (const std::exception& e)

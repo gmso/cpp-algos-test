@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 
 #Project and executable
-project(proj-cpp-algos-test)
+project(proj_cpp_algos_test)
 
 #Set output dir
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out")
@@ -9,13 +9,20 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out")
 #Private sources and headers
 set(SOURCE_FILES
     ./src/main.cpp
-	./src/binary-search.cpp)
+	./src/binary_search.cpp)
+	
+set(HEADER_FILES 
+    ./inc/binary_search.h)
 
 #Main executable
-add_executable(cpp-algos-test 
-	${SOURCE_FILES})
+add_executable(algo_test 
+	${SOURCE_FILES}
+	${HEADER_FILES})
 
-target_compile_features(cpp-algos-test
+target_include_directories(algo_test
+    PRIVATE ./inc)
+
+target_compile_features(algo_test
     PUBLIC
         cxx_std_17
 )
