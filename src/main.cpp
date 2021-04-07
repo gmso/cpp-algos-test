@@ -1,31 +1,14 @@
-#include <functional>
 #include <exception>
 #include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 
+#include "utils.h"
 #include "binary_search.h"
 
 namespace app
 {
-	struct Algo
-	{
-		Algo() {};
-		Algo(
-			std::string name,
-			std::function<std::vector<std::string>()> callback) :
-			m_name(name),
-			m_callbackFn(callback)
-		{};
-
-		std::string m_name;
-		std::function<std::vector<std::string>()> m_callbackFn;
-	};
-
-	typedef std::map<std::string, Algo> Algo_Map;
-
-	void printHelp(Algo_Map& algos)
+	void printHelp(utils::types::Algo_Map& algos)
 	{
 		std::cout <<
 			"\n\nUse the following arguments to test each algorithm:\n";
@@ -41,18 +24,13 @@ namespace app
 		std::cout << "\n\n";
 	}
 
-	Algo_Map initAlgos()
+	utils::types::Algo_Map initAlgos()
 	{
-		Algo_Map algos;
-
-		/*auto testFn = []() {
-			std::vector<std::string> ret{ "test" };
-			return ret;
-		};*/
+		utils::types::Algo_Map algos;
 
 		algos.insert({
 			"0",
-			Algo("Binary search",binary_search::return_result) });
+			utils::types::Algo("Binary search",binary_search::return_result) });
 
 		return algos;
 	}

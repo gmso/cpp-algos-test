@@ -1,7 +1,7 @@
 #include "binary_search.h"
 
-binary_search::Result binary_search::return_result()
+utils::types::Test_Results binary_search::return_result()
 {
-	binary_search::Result ret{ "test" };
+	utils::types::Test_Results ret{ "test" };
 	return ret;
 }

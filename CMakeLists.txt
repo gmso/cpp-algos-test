@@ -12,6 +12,7 @@ set(SOURCE_FILES
 	./src/binary_search.cpp)
 	
 set(HEADER_FILES 
+    ./inc/utils.h
     ./inc/binary_search.h)
 
 #Main executable

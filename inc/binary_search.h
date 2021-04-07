@@ -1,9 +1,8 @@
-#include <string>
-#include <vector>
+#pragma once
+
+#include "utils.h"
 
 namespace binary_search
 {
-	typedef std::vector<std::string> Result;
-
-	Result return_result();
+	utils::types::Test_Results return_result();
 }
