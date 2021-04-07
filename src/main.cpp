@@ -30,7 +30,7 @@ namespace app
 
 		algos.insert({
 			"0",
-			utils::types::Algo("Binary search",binary_search::return_result) });
+			utils::types::Algo("Binary search",binary_search::run) });
 
 		return algos;
 	}
@@ -46,7 +46,7 @@ namespace app
 			return 1;
 		}
 
-		auto argument = std::string(argv[1]);
+		const auto argument = std::string(argv[1]);
 		if (argument == "help")
 		{
 			printHelp(algos);
@@ -64,7 +64,7 @@ namespace app
 				"\n\n-------- Executing tests for algorithm " <<
 				algos[argument].m_name << " ---------\n";
 
-			auto results = algos[argument].m_callbackFn();
+			const auto results = algos[argument].m_callbackFn();
 
 			for (auto& result : results)
 			{
