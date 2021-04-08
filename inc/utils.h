@@ -39,36 +39,37 @@ namespace utils
 			Time_point begin;
 			Time_point end;
 
-			void start()
-			{
-				end = Clock::now();
-				begin = Clock::now();
-			}
+			void start();
 
-			void stop()
-			{
-				end = Clock::now();
-			}
+			void stop();
 
-			std::string getTime()
-			{
-				std::chrono::duration<double> time_diff = end - begin;
-				return (std::to_string(time_diff.count()));
-			}
+			std::string getTime();
 		};
 	}
 
 	namespace test
 	{
-		template<typename Algo_input>
-		std::string test_algo(
-			std::function<void(Algo_input input)> algo_function,
-			Algo_input input)
+		template<typename Algorithm, typename Input>
+		std::string time_algorithm(Algorithm algo_function,
+			Input algo_input)
 		{
 			time::Timer timer;
 
 			timer.start();
-			algo_function(input);
+			algo_function(algo_input);
+			timer.stop();
+
+			return (timer.getTime());
+		}
+
+		template<typename Algorithm, typename Input_1, typename Input_2>
+		std::string time_algorithm(Algorithm algo_function,
+			Input_1 algo_input_1, Input_2 algo_input_2)
+		{
+			time::Timer timer;
+
+			timer.start();
+			algo_function(algo_input_1, algo_input_2);
 			timer.stop();
 
 			return (timer.getTime());
@@ -77,18 +78,9 @@ namespace utils
 		std::string format_algo_result(
 			std::string algo_name,
 			std::string data_structure,
-			size_t size_data_structure,
+			int size_data_structure,
 			bool data_is_ordered,
 			std::string time_of_test
-		)
-		{
-			return(
-				algo_name + "\t performed on \t" +
-				(data_is_ordered ? "ordered \t" : "unordered \t") +
-				data_structure + "\t of \t" +
-				std::to_string(size_data_structure) + " elements" +
-				"\t Runtime -----> \t" + time_of_test + "\t nanosec."
-				);
-		}
+		);
 	}
 }

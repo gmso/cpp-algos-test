@@ -9,6 +9,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out")
 #Private sources and headers
 set(SOURCE_FILES
     ./src/main.cpp
+    ./src/utils.cpp
 	./src/binary_search.cpp)
 	
 set(HEADER_FILES 
