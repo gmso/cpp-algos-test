@@ -10,12 +10,20 @@ namespace utils
 {
 	namespace types
 	{
-		typedef int Iterations;
-		struct Algo_Result
+		struct Algo_result
 		{
-			Iterations iterations = 0;
+			int iterations = 1;
+			bool is_search_algo = false;
+			int item_to_be_found = 0;
+			bool item_found = false;
+		};
+
+		struct Algo_result_with_time
+		{
+			Algo_result result;
 			std::string time_run = "0";
 		};
+
 		typedef std::vector<std::string> Test_Results;
 
 		struct Algo
@@ -56,35 +64,36 @@ namespace utils
 	namespace test
 	{
 		template<typename Algorithm, typename Input>
-		types::Algo_Result time_algorithm(Algorithm algo_function,
+		utils::types::Algo_result_with_time time_algorithm(
+			Algorithm algo_function,
 			Input algo_input)
 		{
 			time::Timer timer;
-			types::Algo_Result result;
+			types::Algo_result_with_time result_with_time;
 
 			timer.start();
-			result.iterations = algo_function(algo_input);
+			result_with_time.result = algo_function(algo_input);
 			timer.stop();
 
-			result.time_run = timer.getTime();
+			result_with_time.time_run = timer.getTime();
 
-			return (result);
+			return (result_with_time);
 		}
 
 		template<typename Algorithm, typename Input_1, typename Input_2>
-		types::Algo_Result time_algorithm(Algorithm algo_function,
-			Input_1 algo_input_1, Input_2 algo_input_2)
+		utils::types::Algo_result_with_time time_algorithm_search(
+			Algorithm algo_function, Input_1 algo_input_1, Input_2 algo_input_2)
 		{
 			time::Timer timer;
-			types::Algo_Result result;
+			types::Algo_result_with_time result_with_time;
 
 			timer.start();
-			result.iterations = algo_function(algo_input_1, algo_input_2);
+			result_with_time.result = algo_function(algo_input_1, algo_input_2);
 			timer.stop();
 
-			result.time_run = timer.getTime();
+			result_with_time.time_run = timer.getTime();
 
-			return (result);
+			return (result_with_time);
 		}
 
 		std::string format_algo_result(
@@ -92,7 +101,7 @@ namespace utils
 			std::string data_structure,
 			int size_data_structure,
 			bool data_is_ordered,
-			utils::types::Algo_Result result
+			utils::types::Algo_result_with_time result
 		);
 	}
 }
