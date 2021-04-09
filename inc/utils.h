@@ -10,6 +10,12 @@ namespace utils
 {
 	namespace types
 	{
+		typedef int Iterations;
+		struct Algo_Result
+		{
+			Iterations iterations = 0;
+			std::string time_run = "0";
+		};
 		typedef std::vector<std::string> Test_Results;
 
 		struct Algo
@@ -50,29 +56,35 @@ namespace utils
 	namespace test
 	{
 		template<typename Algorithm, typename Input>
-		std::string time_algorithm(Algorithm algo_function,
+		types::Algo_Result time_algorithm(Algorithm algo_function,
 			Input algo_input)
 		{
 			time::Timer timer;
+			types::Algo_Result result;
 
 			timer.start();
-			algo_function(algo_input);
+			result.iterations = algo_function(algo_input);
 			timer.stop();
 
-			return (timer.getTime());
+			result.time_run = timer.getTime();
+
+			return (result);
 		}
 
 		template<typename Algorithm, typename Input_1, typename Input_2>
-		std::string time_algorithm(Algorithm algo_function,
+		types::Algo_Result time_algorithm(Algorithm algo_function,
 			Input_1 algo_input_1, Input_2 algo_input_2)
 		{
 			time::Timer timer;
+			types::Algo_Result result;
 
 			timer.start();
-			algo_function(algo_input_1, algo_input_2);
+			result.iterations = algo_function(algo_input_1, algo_input_2);
 			timer.stop();
 
-			return (timer.getTime());
+			result.time_run = timer.getTime();
+
+			return (result);
 		}
 
 		std::string format_algo_result(
@@ -80,7 +92,7 @@ namespace utils
 			std::string data_structure,
 			int size_data_structure,
 			bool data_is_ordered,
-			std::string time_of_test
+			utils::types::Algo_Result result
 		);
 	}
 }

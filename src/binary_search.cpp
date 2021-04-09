@@ -15,16 +15,16 @@ utils::types::Test_Results binary_search::run()
 
 	utils::types::Test_Results ret;
 
-	auto algo_time =
+	auto algo_result =
 		utils::test::time_algorithm(simple_binary_search, data_array_1, 3);
 	ret.push_back(utils::test::format_algo_result(
 		"Custom algorithm", "array", arr_size_1, true,
-		algo_time));
+		algo_result));
 
 	return ret;
 }
 
-void binary_search::simple_binary_search(
+utils::types::Iterations binary_search::simple_binary_search(
 	const std::vector<int>& arr, int num_to_find)
 {
 	/*auto low = arr[0];
@@ -39,4 +39,5 @@ void binary_search::simple_binary_search(
 		}
 	}*/
 	Sleep(1000);
+	return 100;
 }

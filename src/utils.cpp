@@ -36,14 +36,25 @@ std::string utils::test::format_algo_result(
 	std::string data_structure,
 	int size_data_structure,
 	bool data_is_ordered,
-	std::string time_of_test
+	utils::types::Algo_Result result
 )
 {
+	const std::string iterations = [&]() {
+		if (result.iterations > 0)
+		{
+			std::string ret{ "\n\t\t-----> Iterations : \t" };
+			ret.append(std::to_string(result.iterations));
+			return ret;
+		}
+		return (std::string{ "" });
+	}();
+
 	return(
 		algo_name + " performed on " +
 		(data_is_ordered ? "ordered " : "unordered ") +
 		data_structure + " of " +
 		std::to_string(size_data_structure) + " elements" +
-		"\t  -----> Runtime : " + time_of_test + " ms"
+		"\n\t\t-----> Runtime : \t" + result.time_run + " ms" +
+		iterations
 		);
 }
