@@ -15,7 +15,7 @@ namespace utils
 
 		struct Algo_result
 		{
-			int iterations = 1;
+			int iterations = 0;
 			bool is_search_algo = false;
 			int item_to_be_found = 0;
 			bool item_found = false;
@@ -105,8 +105,7 @@ namespace utils
 	{
 		template<typename Algorithm, typename Input>
 		utils::types::Algo_result_with_time time_algorithm(
-			Algorithm algo_function,
-			Input algo_input)
+			Algorithm& algo_function, Input& algo_input)
 		{
 			time::Timer timer;
 			types::Algo_result_with_time result_with_time;
@@ -122,7 +121,7 @@ namespace utils
 
 		template<typename Algorithm, typename Input_1, typename Input_2>
 		utils::types::Algo_result_with_time time_algorithm_search(
-			Algorithm algo_function, Input_1 algo_input_1, Input_2 algo_input_2)
+			Algorithm& algo_function, Input_1& algo_input_1, Input_2& algo_input_2)
 		{
 			time::Timer timer;
 			types::Algo_result_with_time result_with_time;

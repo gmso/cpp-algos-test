@@ -67,8 +67,10 @@ std::string utils::test::format_algo_result(const utils::types::Algo_result_for_
 		res_for_print.size_data_structure);
 	auto s_item_searched = int_to_string(
 		res_for_print.results_with_time.result.item_to_be_found);
-	auto s_iterations = int_to_string(
-		res_for_print.results_with_time.result.iterations);
+	auto s_iterations =
+		res_for_print.results_with_time.result.iterations == 0 ?
+		"unknown" :
+		int_to_string(res_for_print.results_with_time.result.iterations);
 	auto s_max_iterations = int_to_string(
 		res_for_print.max_iterations);
 
