@@ -11,9 +11,9 @@ namespace app
 	void printHelp(utils::types::Algo_Map& algos)
 	{
 		std::cout <<
-			"\n\nUse the following arguments to test each algorithm:\n";
+			"\n\nUse the following arguments to test each algorithm set:\n";
 		std::cout <<
-			"\n\tKey\tAlgorithm\n\t------------------------------------";
+			"\n\tKey\tAlgorithm\n\t---------------------------------------------------------";
 
 		for (auto& algo : algos)
 		{

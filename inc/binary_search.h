@@ -31,6 +31,10 @@ namespace binary_search
 		const std::vector<utils::types::Int_number>& arr,
 		utils::types::Int_number num_to_find);
 
+	utils::types::Algo_result std_find(
+		const std::vector<utils::types::Int_number>& arr,
+		utils::types::Int_number num_to_find);
+
 	utils::types::Algo_result custom_binary_search(
 		const std::vector<utils::types::Int_number>& arr,
 		utils::types::Int_number num_to_find);

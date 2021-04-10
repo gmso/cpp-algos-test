@@ -33,6 +33,15 @@ utils::types::Test_Results binary_search::run()
 		);
 		ret.push_back(utils::test::format_algo_result(algo_result_0));
 
+		const auto algo_result_1 = test_algorithm(
+			std_find,
+			"[ Sequential ] std::find,",
+			(data_array.size()),
+			data_array,
+			nums_to_find.at(i)
+		);
+		ret.push_back(utils::test::format_algo_result(algo_result_1));
+
 		const auto algo_result_2 = test_algorithm(
 			custom_binary_search,
 			"[ Binary ] Custom algorithm,",
@@ -74,6 +83,25 @@ utils::types::Algo_result binary_search::custom_sequential_search(
 		}
 		result.iterations++;
 	}
+	return result;
+}
+
+utils::types::Algo_result binary_search::std_find(
+	const std::vector<utils::types::Int_number>& arr,
+	utils::types::Int_number num_to_find)
+{
+	utils::types::Algo_result result;
+	result.is_search_algo = true;
+	result.item_to_be_found = num_to_find;
+
+	auto it = std::find(arr.begin(), arr.end(), num_to_find);
+
+	if (it != arr.end())
+	{
+		result.item_found = true;
+	}
+	result.iterations = std::distance(arr.begin(), it) + 1;
+
 	return result;
 }
 
