@@ -3,6 +3,7 @@
 #include <functional>
 #include <chrono>
 #include <map>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -10,6 +11,8 @@ namespace utils
 {
 	namespace types
 	{
+		typedef long long Int_number;
+
 		struct Algo_result
 		{
 			int iterations = 1;
@@ -22,6 +25,15 @@ namespace utils
 		{
 			Algo_result result;
 			std::string time_run = "0";
+		};
+
+		struct Algo_result_for_print
+		{
+			std::string algo_name = "";
+			std::string data_structure = "";
+			bool data_is_ordered = false;
+			types::Int_number size_data_structure = 0;
+			utils::types::Algo_result_with_time results_with_time;
 		};
 
 		typedef std::vector<std::string> Test_Results;
@@ -41,6 +53,33 @@ namespace utils
 		};
 
 		typedef std::map<std::string, Algo> Algo_Map;
+	}
+
+	namespace constants
+	{
+		const types::Int_number array_size_minimum = 1000;
+		const types::Int_number array_size_middle = 1000000;
+		const types::Int_number array_size_maximum = 1000000000;
+	}
+
+	namespace generate
+	{
+		auto ordered_array = [](auto size) {
+			std::vector<types::Int_number> arr(size);
+			std::iota(arr.begin(), arr.end(), 0);
+			return arr;
+		};
+
+		auto random = [](types::Int_number max) {
+			// Seed with a real random value, if available
+			std::random_device r;
+
+			// Choose a random mean between 0 and max
+			std::default_random_engine e1(r());
+			std::uniform_int_distribution<types::Int_number> uniform_dist(1, max);
+			auto mean = uniform_dist(e1);
+			return mean;
+		};
 	}
 
 	namespace time
@@ -96,79 +135,7 @@ namespace utils
 			return (result_with_time);
 		}
 
-		template<typename Integer_size>
 		std::string format_algo_result(
-			std::string algo_name,
-			std::string data_structure,
-			Integer_size size_data_structure,
-			bool data_is_ordered,
-			utils::types::Algo_result_with_time results_with_time
-		)
-		{
-			auto int_to_string = [](auto integer) {
-				std::string ans = "";
-
-				auto num = std::to_string(integer);
-
-				int count = 0;
-
-				// Traverse the string in reverse
-				for (int i = num.size() - 1; i >= 0; i--) {
-					count++;
-					ans.push_back(num[i]);
-
-					// If three characters are traversed
-					if (count == 3) {
-						ans.push_back('\'');
-						count = 0;
-					}
-				}
-
-				// Reverse the string to get the desired output
-				reverse(ans.begin(), ans.end());
-
-				// If the given string is less than 1000
-				if (ans.size() % 4 == 0) {
-					ans.erase(ans.begin());
-				}
-
-				return ans;
-			};
-
-			auto s_data_structure_size = int_to_string(size_data_structure);
-			auto s_item_searched = int_to_string(results_with_time.result.item_to_be_found);
-			auto s_iterations = int_to_string(results_with_time.result.iterations);
-
-			const std::vector<std::string> search_algo_info = [&]() {
-				std::vector<std::string> ret{ "","" };
-				if (results_with_time.result.is_search_algo)
-				{
-					ret.at(0) =
-						std::string{ "\n\t\t-----> Item searched: \t" + s_item_searched };
-					ret.at(1) = (std::string{ "\n\t\t-----> Item found?: \t" });
-					if (results_with_time.result.item_found)
-					{
-						ret.at(1).append("Yes");
-					}
-					else
-					{
-						ret.at(1).append("No");
-					}
-				}
-				return (ret);
-			}();
-
-			return(
-				algo_name + " performed on " +
-				(data_is_ordered ? "ordered " : "unordered ") +
-				data_structure + " of " +
-				s_data_structure_size + " elements " +
-				"\n\t\t-----> Runtime : \t" + results_with_time.time_run + " ms" +
-				"\n\t\t-----> Iterations : \t" + s_iterations +
-				search_algo_info.at(0) +
-				search_algo_info.at(1)
-				//iterations
-				);
-		}
+			const utils::types::Algo_result_for_print& res_for_print);
 	}
 }
