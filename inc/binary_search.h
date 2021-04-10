@@ -4,8 +4,10 @@
 
 namespace binary_search
 {
+	typedef long long Int_number;
+
 	utils::types::Test_Results run();
 
 	utils::types::Algo_result simple_binary_search(
-		const std::vector<int>& arr, int num_to_find);
+		const std::vector<Int_number>& arr, Int_number num_to_find);
 }

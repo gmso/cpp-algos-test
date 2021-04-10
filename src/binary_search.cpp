@@ -5,18 +5,18 @@
 utils::types::Test_Results binary_search::run()
 {
 	auto init_ordered_array = [](auto size) {
-		std::vector<int> arr(size);
+		std::vector<Int_number> arr(size);
 		std::iota(arr.begin(), arr.end(), 0);
 		return arr;
 	};
 
-	const int arr_size_1 = 1000000;
-	const std::vector<int> data_array_1 = init_ordered_array(arr_size_1);
+	const Int_number arr_size_1 = 1000000;
+	const std::vector<Int_number> data_array_1 = init_ordered_array(arr_size_1);
 
 	utils::types::Test_Results ret;
 
 	auto algo_result =
-		utils::test::time_algorithm_search(simple_binary_search, data_array_1, 3);
+		utils::test::time_algorithm_search(simple_binary_search, data_array_1, 2687);
 	ret.push_back(utils::test::format_algo_result(
 		"Custom algorithm", "array", arr_size_1, true,
 		algo_result));
@@ -25,7 +25,7 @@ utils::types::Test_Results binary_search::run()
 }
 
 utils::types::Algo_result binary_search::simple_binary_search(
-	const std::vector<int>& arr, int num_to_find)
+	const std::vector<Int_number>& arr, Int_number num_to_find)
 {
 	auto low = arr[0];
 	auto high = arr[arr.size() - 1];
@@ -38,7 +38,6 @@ utils::types::Algo_result binary_search::simple_binary_search(
 	while (low <= high)
 	{
 		mid = (high + low) / 2;
-		//mid = (mid % 2 == 0) ? mid : (mid + 1);
 		if (arr[mid] == num_to_find)
 		{
 			result.item_found = true;
@@ -55,7 +54,4 @@ utils::types::Algo_result binary_search::simple_binary_search(
 		}
 	}
 	return result;
-
-	//Sleep(1000);
-	//return 100;
 }

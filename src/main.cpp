@@ -13,7 +13,7 @@ namespace app
 		std::cout <<
 			"\n\nUse the following arguments to test each algorithm:\n";
 		std::cout <<
-			"\n\tKey\tAlgorithm\n\t----------------------";
+			"\n\tKey\tAlgorithm\n\t------------------------------------";
 
 		for (auto& algo : algos)
 		{
@@ -30,7 +30,7 @@ namespace app
 
 		algos.insert({
 			"0",
-			utils::types::Algo("Binary search",binary_search::run) });
+			utils::types::Algo("Binary search, O(log n)",binary_search::run) });
 
 		return algos;
 	}
