@@ -33,6 +33,7 @@ namespace utils
 			std::string data_structure = "";
 			bool data_is_ordered = false;
 			types::Int_number size_data_structure = 0;
+			types::Int_number max_iterations = 0;
 			utils::types::Algo_result_with_time results_with_time;
 		};
 
@@ -57,7 +58,7 @@ namespace utils
 
 	namespace constants
 	{
-		const types::Int_number array_size_minimum = 1000;
+		const types::Int_number array_size_minimum = 100;
 		const types::Int_number array_size_middle = 1000000;
 		const types::Int_number array_size_maximum = 1000000000;
 	}
@@ -70,13 +71,13 @@ namespace utils
 			return arr;
 		};
 
-		auto random = [](types::Int_number max) {
+		auto random = [](types::Int_number max, types::Int_number min = 0) {
 			// Seed with a real random value, if available
 			std::random_device r;
 
 			// Choose a random mean between 0 and max
 			std::default_random_engine e1(r());
-			std::uniform_int_distribution<types::Int_number> uniform_dist(1, max);
+			std::uniform_int_distribution<types::Int_number> uniform_dist(min, max);
 			auto mean = uniform_dist(e1);
 			return mean;
 		};

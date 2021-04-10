@@ -69,6 +69,8 @@ std::string utils::test::format_algo_result(const utils::types::Algo_result_for_
 		res_for_print.results_with_time.result.item_to_be_found);
 	auto s_iterations = int_to_string(
 		res_for_print.results_with_time.result.iterations);
+	auto s_max_iterations = int_to_string(
+		res_for_print.max_iterations);
 
 	const std::vector<std::string> search_algo_info = [&]() {
 		std::vector<std::string> ret{ "","" };
@@ -94,8 +96,8 @@ std::string utils::test::format_algo_result(const utils::types::Algo_result_for_
 		(res_for_print.data_is_ordered ? "ordered " : "unordered ") +
 		res_for_print.data_structure + " of " +
 		s_data_structure_size + " elements " +
-		"\n\t\t-----> Runtime : \t" + res_for_print.results_with_time.time_run + " ms" +
-		"\n\t\t-----> Iterations : \t" + s_iterations +
+		"\n\t\t-----> Runtime :\t" + res_for_print.results_with_time.time_run + " ms" +
+		"\n\t\t-----> Iterations(max):\t" + s_iterations + "(" + s_max_iterations + ")" +
 		search_algo_info.at(0) +
 		search_algo_info.at(1)
 		//iterations
