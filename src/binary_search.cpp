@@ -21,56 +21,63 @@ utils::types::Test_Results binary_search::run()
 
 	for (size_t i = 0; i < arrays_sizes.size(); i++)
 	{
-		/*auto algo_result_for_print = test_simple_binary_search(
-			arrays_to_test.at(i),
-			nums_to_find.at(i)
-		);*/
-
 		const auto data_array =
 			utils::generate::ordered_array(arrays_sizes.at(i));
 
-		const auto algo_result_for_print_simple = test_algorithm(
-			simple_binary_search,
-			"[ Custom algorithm ]",
+		const auto algo_result_0 = test_algorithm(
+			custom_sequential_search,
+			"[ Sequential ] Custom algorithm,",
+			(data_array.size()),
 			data_array,
 			nums_to_find.at(i)
 		);
-		ret.push_back(utils::test::format_algo_result(algo_result_for_print_simple));
+		ret.push_back(utils::test::format_algo_result(algo_result_0));
 
-		const auto algo_result_for_print_std_bin_srch = test_algorithm(
-			std_binary_search,
-			"[ std::binary_search ]",
+		const auto algo_result_2 = test_algorithm(
+			custom_binary_search,
+			"[ Binary ] Custom algorithm,",
+			(log2(data_array.size()) + 1),
 			data_array,
 			nums_to_find.at(i)
 		);
-		ret.push_back(utils::test::format_algo_result(algo_result_for_print_std_bin_srch));
+		ret.push_back(utils::test::format_algo_result(algo_result_2));
+
+		const auto algo_result_3 = test_algorithm(
+			std_binary_search,
+			"[ Binary ] std::binary_search,",
+			(log2(data_array.size()) + 1),
+			data_array,
+			nums_to_find.at(i)
+		);
+		ret.push_back(utils::test::format_algo_result(algo_result_3));
 		ret.push_back("\n");
 	}
 
 	return ret;
 }
 
-/*utils::types::Algo_result_for_print binary_search::test_simple_binary_search(
-	const utils::types::Int_number& size_data_structure,
+utils::types::Algo_result binary_search::custom_sequential_search(
+	const std::vector<utils::types::Int_number>& arr,
 	utils::types::Int_number num_to_find)
 {
-	utils::types::Algo_result_for_print algo_for_print;
-	algo_for_print.algo_name = "Custom algorithm";
-	algo_for_print.data_structure = "array";
-	algo_for_print.data_is_ordered = true;
-	algo_for_print.size_data_structure = size_data_structure;
-	algo_for_print.max_iterations = log2(size_data_structure) + 1;
+	utils::types::Algo_result result;
+	result.is_search_algo = true;
+	result.item_to_be_found = num_to_find;
+	result.iterations = 1;
 
-	const auto data_array =
-		utils::generate::ordered_array(size_data_structure);
+	for (auto& num : arr)
+	{
+		if (num == num_to_find)
+		{
+			result.item_found = true;
+			return result;
+		}
+		result.iterations++;
+	}
+	return result;
+}
 
-	algo_for_print.results_with_time = utils::test::time_algorithm_search(
-		simple_binary_search, data_array, num_to_find);
-
-	return algo_for_print;
-}*/
-
-utils::types::Algo_result binary_search::simple_binary_search(
+utils::types::Algo_result binary_search::custom_binary_search(
 	const std::vector<utils::types::Int_number>& arr,
 	utils::types::Int_number num_to_find)
 {
@@ -103,26 +110,6 @@ utils::types::Algo_result binary_search::simple_binary_search(
 	}
 	return result;
 }
-
-/*utils::types::Algo_result_for_print binary_search::test_std_binary_search(
-	const utils::types::Int_number& size_data_structure,
-	utils::types::Int_number num_to_find)
-{
-	utils::types::Algo_result_for_print algo_for_print;
-	algo_for_print.algo_name = "std::binary_search";
-	algo_for_print.data_structure = "array";
-	algo_for_print.data_is_ordered = true;
-	algo_for_print.size_data_structure = size_data_structure;
-	algo_for_print.max_iterations = log2(size_data_structure) + 1;
-
-	const auto data_array =
-		utils::generate::ordered_array(size_data_structure);
-
-	algo_for_print.results_with_time = utils::test::time_algorithm_search(
-		std_binary_search, data_array, num_to_find);
-
-	return algo_for_print;
-}*/
 
 utils::types::Algo_result binary_search::std_binary_search(
 	const std::vector<utils::types::Int_number>& arr,

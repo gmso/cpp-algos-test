@@ -17,20 +17,6 @@ std::string utils::time::Timer::getTime()
 	return (std::to_string(time_diff_ms.count()));
 }
 
-/*template<typename Algorithm, typename... Inputs>
-std::string utils::test::time_algorithm(
-	Algorithm algo_function,
-	Inputs... algo_inputs)
-{
-	time::Timer timer;
-
-	timer.start();
-	algo_function(algo_inputs...);
-	timer.stop();
-
-	return (timer.getTime());
-}*/
-
 std::string utils::test::format_algo_result(const utils::types::Algo_result_for_print& res_for_print)
 {
 	auto int_to_string = [](auto integer) {
@@ -102,6 +88,5 @@ std::string utils::test::format_algo_result(const utils::types::Algo_result_for_
 		"\n\t\t-----> Iterations(max):\t" + s_iterations + "(" + s_max_iterations + ")" +
 		search_algo_info.at(0) +
 		search_algo_info.at(1)
-		//iterations
 		);
 }

@@ -30,7 +30,7 @@ namespace app
 
 		algos.insert({
 			"0",
-			utils::types::Algo("Binary search, O(log n)",binary_search::run) });
+			utils::types::Algo("Sequential (O(n)) vs. Binary search (O(log n))",binary_search::run) });
 
 		return algos;
 	}
