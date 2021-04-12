@@ -10,11 +10,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out")
 set(SOURCE_FILES
     ./src/main.cpp
     ./src/utils.cpp
-	./src/binary_search.cpp)
+	./src/binary_search.cpp
+	./src/selection_sort.cpp)
 	
 set(HEADER_FILES 
     ./inc/utils.h
-    ./inc/binary_search.h)
+    ./inc/binary_search.h
+    ./inc/selection_sort.h)
 
 #Main executable
 add_executable(algo_test 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include <climits>
 #include <iostream>
 #include <fstream>
 #include <functional>
@@ -8,6 +9,7 @@
 #include <map>
 #include <random>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 namespace utils
@@ -65,7 +67,7 @@ namespace utils
 
 		const types::Int_number array_size_minimum_default = 100;
 		const types::Int_number array_size_middle_default = 1000000;
-		const types::Int_number array_size_maximum_default = 1000000000;
+		const types::Int_number array_size_maximum_default = 100000000;
 
 		const int config_file_line_num_array_minimum = 1;
 		const int config_file_line_num_array_middle = 2;
@@ -109,17 +111,17 @@ namespace utils
 			std::stoll(read_line_from_config_file(config_file_line_num_array_maximum));
 
 		auto read_whole_config_file = [&]() {
+			std::vector<std::string> lines;
 			if (std::filesystem::exists(config_file_name))
 			{
 				std::ifstream file{ config_file_name };
 				std::string line;
-				std::vector<std::string> lines;
 				while (std::getline(file, line))
 				{
 					lines.push_back(line);
 				}
-				return (lines);
 			}
+			return (lines);
 		};
 
 		auto delete_content_config_file = []() {
@@ -159,12 +161,6 @@ namespace utils
 
 	namespace generate
 	{
-		auto ordered_array = [](auto size) {
-			std::vector<types::Int_number> arr(size);
-			std::iota(arr.begin(), arr.end(), 0);
-			return arr;
-		};
-
 		auto random = [](types::Int_number max, types::Int_number min = 0) {
 			// Seed with a real random value, if available
 			std::random_device r;
@@ -174,6 +170,32 @@ namespace utils
 			std::uniform_int_distribution<types::Int_number> uniform_dist(min, max);
 			auto mean = uniform_dist(e1);
 			return mean;
+		};
+
+		auto ordered_array = [](auto size) {
+			std::vector<types::Int_number> arr(size);
+			std::iota(arr.begin(), arr.end(), 0);
+			return arr;
+		};
+
+		auto unordered_array = [](auto size) {
+			std::vector<types::Int_number> u_arr(size);
+
+			for (auto& num : u_arr)
+			{
+				num = utils::generate::random(size * 10);
+			}
+			return u_arr;
+		};
+
+		auto unordered_set = [](auto size) {
+			std::unordered_set<types::Int_number> u_set(size);
+
+			for (size_t i = 0; i < size; i++)
+			{
+				u_set.insert(utils::generate::random(size * 10));
+			}
+			return u_set;
 		};
 	}
 

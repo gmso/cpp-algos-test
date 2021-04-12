@@ -5,6 +5,7 @@
 
 #include "utils.h"
 #include "binary_search.h"
+#include "selection_sort.h"
 
 namespace app
 {
@@ -31,6 +32,10 @@ namespace app
 		algos.insert({
 			"0",
 			utils::types::Algo("Sequential (O(n)) vs. Binary search (O(log n))",binary_search::run) });
+
+		algos.insert({
+			"1",
+			utils::types::Algo("Selection sort (O(n^2))",selection_sort::run) });
 
 		return algos;
 	}
