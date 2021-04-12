@@ -1,7 +1,10 @@
 #pragma once
 
-#include <functional>
 #include <chrono>
+#include <iostream>
+#include <fstream>
+#include <functional>
+#include <filesystem>
 #include <map>
 #include <random>
 #include <string>
@@ -56,11 +59,102 @@ namespace utils
 		typedef std::map<std::string, Algo> Algo_Map;
 	}
 
-	namespace constants
+	namespace config
 	{
-		const types::Int_number array_size_minimum = 100;
-		const types::Int_number array_size_middle = 1000000;
-		const types::Int_number array_size_maximum = 1000000000;
+		const std::string config_file_name{ "config.txt" };
+
+		const types::Int_number array_size_minimum_default = 100;
+		const types::Int_number array_size_middle_default = 1000000;
+		const types::Int_number array_size_maximum_default = 1000000000;
+
+		const int config_file_line_num_array_minimum = 1;
+		const int config_file_line_num_array_middle = 2;
+		const int config_file_line_num_array_maximum = 3;
+
+		auto init_config_file = []() {
+			if (!(std::filesystem::exists(config_file_name)))
+			{
+				std::ofstream file{ config_file_name };
+				file << array_size_minimum_default << "\n";
+				file << array_size_middle_default << "\n";
+				file << array_size_maximum_default << "\n";
+				file.close();
+			}
+		};
+
+		auto read_line_from_config_file = [](int line_number_starting_at_1) {
+			init_config_file();
+			if (!(std::filesystem::exists(config_file_name)))
+			{
+				//Config file not found, using small values instead
+				return (std::to_string(std::pow(10, line_number_starting_at_1)));
+			}
+			else
+			{
+				std::ifstream file{ config_file_name };
+				std::string line;
+				for (size_t i = 0; i < line_number_starting_at_1; i++)
+				{
+					std::getline(file, line);
+				}
+				return (line);
+			}
+		};
+
+		const types::Int_number array_size_minimum =
+			std::stoll(read_line_from_config_file(config_file_line_num_array_minimum));
+		const types::Int_number array_size_middle =
+			std::stoll(read_line_from_config_file(config_file_line_num_array_middle));
+		const types::Int_number array_size_maximum =
+			std::stoll(read_line_from_config_file(config_file_line_num_array_maximum));
+
+		auto read_whole_config_file = [&]() {
+			if (std::filesystem::exists(config_file_name))
+			{
+				std::ifstream file{ config_file_name };
+				std::string line;
+				std::vector<std::string> lines;
+				while (std::getline(file, line))
+				{
+					lines.push_back(line);
+				}
+				return (lines);
+			}
+		};
+
+		auto delete_content_config_file = []() {
+			std::ofstream outfile;
+			outfile.open(config_file_name, std::ofstream::out | std::ofstream::trunc);
+			outfile.close();
+		};
+
+		auto reduce_array_size_maximum_in_config_file = []() {
+			auto original = read_whole_config_file();
+
+			delete_content_config_file();
+
+			std::ofstream file{ config_file_name };
+			for (size_t i = 0; i < original.size(); i++)
+			{
+				const auto line_to_write = [&]() {
+					if ((i + 1) == config_file_line_num_array_maximum)
+					{
+						return (std::to_string(std::stoll(original.at(i)) / 10));
+					}
+					else
+					{
+						return (original.at(i));
+					}
+				}();
+
+				file << line_to_write << "\n";
+			}
+			file.close();
+		};
+
+		//const types::Int_number array_size_minimum = 100;
+		//const types::Int_number array_size_middle = 1000000;
+		//const types::Int_number array_size_maximum = 1000000000;
 	}
 
 	namespace generate

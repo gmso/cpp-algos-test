@@ -8,15 +8,15 @@ utils::types::Test_Results binary_search::run()
 	utils::types::Test_Results ret;
 
 	const std::vector<utils::types::Int_number> arrays_sizes = {
-		utils::constants::array_size_minimum,
-		utils::constants::array_size_middle,
-		utils::constants::array_size_maximum
+		utils::config::array_size_minimum,
+		utils::config::array_size_middle,
+		utils::config::array_size_maximum
 	};
 
 	const std::vector<utils::types::Int_number> nums_to_find = {
-		utils::generate::random(utils::constants::array_size_minimum - 1),
-		utils::generate::random(utils::constants::array_size_middle - 1),
-		utils::generate::random(utils::constants::array_size_maximum - 1)
+		utils::generate::random(utils::config::array_size_minimum - 1),
+		utils::generate::random(utils::config::array_size_middle - 1),
+		utils::generate::random(utils::config::array_size_maximum - 1)
 	};
 
 	for (size_t i = 0; i < arrays_sizes.size(); i++)
