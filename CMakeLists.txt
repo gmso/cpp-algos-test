@@ -30,3 +30,26 @@ target_compile_features(algo_test
     PUBLIC
         cxx_std_17
 )
+
+#Test sources and headers
+set(TEST_SOURCE_FILES
+    ./test/src/doctest_main.cpp
+    ./test/src/test_utils.cpp)
+	
+set(TEST_HEADER_FILES 
+    ./test/inc/doctest.h)
+
+#Test runner executable
+add_executable(algo_test_tests
+	${TEST_SOURCE_FILES}
+	${TEST_HEADER_FILES}
+	${HEADER_FILES})
+
+target_include_directories(algo_test_tests
+    PRIVATE ./test/inc
+	PRIVATE ./inc)
+
+target_compile_features(algo_test_tests
+    PUBLIC
+        cxx_std_17
+)
