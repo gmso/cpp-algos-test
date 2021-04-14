@@ -7,8 +7,10 @@ project(proj_cpp_algos_test)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out")
 
 #Private sources and headers
+set(SOURCE_FILES_MAIN
+    ./src/main.cpp)
+
 set(SOURCE_FILES
-    ./src/main.cpp
     ./src/utils.cpp
 	./src/binary_search.cpp
 	./src/selection_sort.cpp)
@@ -20,6 +22,7 @@ set(HEADER_FILES
 
 #Main executable
 add_executable(algo_test 
+    ${SOURCE_FILES_MAIN}
 	${SOURCE_FILES}
 	${HEADER_FILES})
 
@@ -47,7 +50,8 @@ add_executable(algo_test_tests
 
 target_include_directories(algo_test_tests
     PRIVATE ./test/inc
-	PRIVATE ./inc)
+	PRIVATE ./inc
+    PRIVATE ./src)
 
 target_compile_features(algo_test_tests
     PUBLIC

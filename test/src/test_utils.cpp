@@ -1,6 +1,8 @@
+#include <thread>
+
 #include "doctest.h"
 
-#include "utils.h"
+#include "utils.cpp"
 
 TEST_SUITE("utils")
 {
@@ -113,7 +115,7 @@ TEST_SUITE("utils")
 
 					REQUIRE(old_size == new_size * 10);
 
-					//delete created config file, as it has been changed from default
+					//delete created config file, as it has been changed from the default
 					fs::remove(utils::config::config_file_name);
 					REQUIRE(fs::exists(utils::config::config_file_name) == false);
 				}
@@ -139,7 +141,7 @@ TEST_SUITE("utils")
 				}
 			}
 
-			WHEN("unordered array, with size 100, is generated")
+			WHEN("unordered array, with random size (max 100), is generated")
 			{
 				const auto random_num = utils::generate::random(100);
 				const auto arr = utils::generate::unordered_array(random_num);
@@ -150,6 +152,49 @@ TEST_SUITE("utils")
 					const auto arr_is_sorted =
 						std::is_sorted(arr.begin(), arr.end());
 					CHECK(arr_is_sorted == false);
+				}
+			}
+
+			WHEN("unordered set, with random size (max 100), is generated")
+			{
+				const auto random_num = utils::generate::random(100);
+				const auto u_set = utils::generate::unordered_set(random_num);
+				//set size can be smaller, if repeated numbers were
+				//attempted to be added
+				CHECK(u_set.size() <= random_num);
+
+				THEN("unordered set is not sorted")
+				{
+					const auto u_set_is_sorted =
+						std::is_sorted(u_set.begin(), u_set.end());
+					CHECK(u_set_is_sorted == false);
+				}
+			}
+		}
+	}
+
+	SCENARIO("timer functionality")
+	{
+		using namespace std::chrono_literals;
+		GIVEN("a newly created Timer object")
+		{
+			utils::time::Timer new_timer;
+
+			WHEN("timer is started")
+			{
+				new_timer.start();
+
+				THEN("after 500 ms, timer is stopped and duration is available")
+				{
+					std::this_thread::sleep_for(200ms);
+					new_timer.stop();
+
+					const auto duration = std::stof(new_timer.get_time_ms());
+
+					//since std::this_thread stops execution for at least
+					//the specified time, we have to check that the duration
+					//is at least the desired one
+					CHECK(duration >= 200);
 				}
 			}
 		}

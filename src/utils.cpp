@@ -11,7 +11,7 @@ void utils::time::Timer::stop()
 	end = Clock::now();
 }
 
-std::string utils::time::Timer::getTime()
+std::string utils::time::Timer::get_time_ms()
 {
 	std::chrono::duration<double, std::milli> time_diff_ms = end - begin;
 	return (std::to_string(time_diff_ms.count()));

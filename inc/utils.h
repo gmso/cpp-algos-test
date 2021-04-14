@@ -210,7 +210,7 @@ namespace utils
 
 			void stop();
 
-			std::string getTime();
+			std::string get_time_ms();
 		};
 	}
 
@@ -227,7 +227,7 @@ namespace utils
 			result_with_time.result = algo_function(algo_input);
 			timer.stop();
 
-			result_with_time.time_run = timer.getTime();
+			result_with_time.time_run = timer.get_time_ms();
 
 			return (result_with_time);
 		}
@@ -243,7 +243,7 @@ namespace utils
 			result_with_time.result = algo_function(algo_input_1, algo_input_2);
 			timer.stop();
 
-			result_with_time.time_run = timer.getTime();
+			result_with_time.time_run = timer.get_time_ms();
 
 			return (result_with_time);
 		}
