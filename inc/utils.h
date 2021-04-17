@@ -68,7 +68,7 @@ namespace utils
 
 		const types::Int_number array_size_minimum_default = 100;
 		const types::Int_number array_size_middle_default = 1000000;
-		const types::Int_number array_size_maximum_default = 1000000000;
+		const types::Int_number array_size_maximum_default = 100000000;
 
 		const int config_file_line_num_array_minimum = 1;
 		const int config_file_line_num_array_middle = 2;

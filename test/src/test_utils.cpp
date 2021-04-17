@@ -184,7 +184,7 @@ TEST_SUITE("utils")
 			{
 				new_timer.start();
 
-				THEN("after 500 ms, timer is stopped and duration is available")
+				THEN("after 200 ms, timer is stopped and duration is available")
 				{
 					std::this_thread::sleep_for(200ms);
 					new_timer.stop();
