@@ -38,7 +38,8 @@ target_compile_features(algo_test
 set(TEST_SOURCE_FILES
     ./test/src/doctest_main.cpp
     ./test/src/test_utils.cpp
-    ./test/src/test_binary_search.cpp)
+    ./test/src/test_binary_search.cpp
+    ./test/src/test_selection_sort.cpp)
 	
 set(TEST_HEADER_FILES 
     ./test/inc/doctest.h)

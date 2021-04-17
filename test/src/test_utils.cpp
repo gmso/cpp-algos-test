@@ -141,9 +141,9 @@ TEST_SUITE("utils")
 				}
 			}
 
-			WHEN("unordered array, with random size (max 100), is generated")
+			WHEN("unordered array, with random size (50-100), is generated")
 			{
-				const auto random_num = utils::generate::random(100);
+				const auto random_num = utils::generate::random(100, 50);
 				const auto arr = utils::generate::unordered_array(random_num);
 				CHECK(arr.size() == random_num);
 
@@ -155,12 +155,12 @@ TEST_SUITE("utils")
 				}
 			}
 
-			WHEN("unordered set, with random size (max 100), is generated")
+			WHEN("unordered set, with random size (50-100), is generated")
 			{
-				const auto random_num = utils::generate::random(100);
+				const auto random_num = utils::generate::random(100, 50);
 				const auto u_set = utils::generate::unordered_set(random_num);
-				//set size can be smaller, if repeated numbers were
-				//attempted to be added
+				//set size can be smaller than random number, if repeated
+				//numbers were attempted to be added
 				CHECK(u_set.size() <= random_num);
 
 				THEN("unordered set is not sorted")

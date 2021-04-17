@@ -10,26 +10,25 @@ utils::types::Test_Results selection_sort::run()
 
 	const std::vector<utils::types::Int_number> arrays_sizes = {
 		utils::config::array_size_minimum,
-		utils::config::array_size_minimum * 10,
-		utils::config::array_size_minimum * 100
+		utils::config::array_size_minimum * 5,
+		utils::config::array_size_minimum * 25
 	};
 
 	const std::vector<utils::types::Int_number> nums_to_find = {
 		utils::generate::random(utils::config::array_size_minimum - 1),
-		utils::generate::random(utils::config::array_size_minimum * 10 - 1),
-		utils::generate::random(utils::config::array_size_minimum * 100 - 1)
+		utils::generate::random(utils::config::array_size_minimum * 5 - 1),
+		utils::generate::random(utils::config::array_size_minimum * 25 - 1)
 	};
 
 	for (size_t i = 0; i < arrays_sizes.size(); i++)
 	{
-		auto u_set =
-			utils::generate::unordered_array(arrays_sizes.at(i));
+		auto u_arr = utils::generate::unordered_array(arrays_sizes.at(i));
 
 		const auto algo_result_0 = test_algorithm(
 			custom_selection_sort,
 			"[ Selection sort ] Custom algorithm,",
-			(u_set.size() * u_set.size()),
-			u_set
+			(u_arr.size() * u_arr.size()),
+			u_arr
 		);
 		ret.push_back(utils::test::format_algo_result(algo_result_0));
 
