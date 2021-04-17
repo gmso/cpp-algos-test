@@ -170,6 +170,22 @@ TEST_SUITE("utils")
 					CHECK(u_set_is_sorted == false);
 				}
 			}
+
+			WHEN("unordered linked list, with random size (50-100), is generated")
+			{
+				const auto random_num = utils::generate::random(100, 50);
+				const auto u_linked_list = utils::generate::unordered_linked_list(random_num);
+				//set size can be smaller than random number, if repeated
+				//numbers were attempted to be added
+				CHECK(u_linked_list.size() <= random_num);
+
+				THEN("unordered linked list is not sorted")
+				{
+					const auto u_linked_list_is_sorted =
+						std::is_sorted(u_linked_list.begin(), u_linked_list.end());
+					CHECK(u_linked_list_is_sorted == false);
+				}
+			}
 		}
 	}
 

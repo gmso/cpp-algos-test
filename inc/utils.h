@@ -62,6 +62,7 @@ namespace utils
 		typedef std::map<std::string, Algo> Algo_Map;
 
 		typedef std::vector<utils::types::Int_number> Arr_nums;
+		typedef std::list<utils::types::Int_number> Linked_list_nums;
 	}
 
 	namespace config
@@ -195,6 +196,16 @@ namespace utils
 				u_set.insert(utils::generate::random(size * 10));
 			}
 			return u_set;
+		};
+
+		auto unordered_linked_list = [](auto size) {
+			std::list<types::Int_number> u_linked_list(size);
+
+			for (auto& num : u_linked_list)
+			{
+				num = utils::generate::random(size * 10);
+			}
+			return u_linked_list;
 		};
 	}
 
