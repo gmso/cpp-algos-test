@@ -21,22 +21,55 @@ TEST_SUITE("selection sort")
 		}
 	}
 
-	SCENARIO("algorithms perform expected function")
+	SCENARIO("algorithm performs expected function")
 	{
 		GIVEN("an unordered array of size 100")
 		{
 			auto u_arr = utils::generate::unordered_array(100);
 
-			WHEN("custom sequential search is executed")
+			WHEN("custom sequential search, creating new container, is executed")
 			{
-				const auto algo_result = selection_sort::custom_selection_sort(u_arr);
+				const auto algo_result =
+					selection_sort::custom_sort_creating_new_container(u_arr);
 
 				THEN("the algo results are valid")
 				{
 					CHECK(algo_result.is_search_algo == false);
+
 					//iterations <= iterations^2, due to O(n^2) complexity
 					CHECK(algo_result.iterations <=
 						(algo_result.iterations * algo_result.iterations));
+
+					//input container should be empty, as values were transferred
+					//to a new container
+					CHECK(u_arr.size() == 0);
+				}
+			}
+		}
+	}
+
+	SCENARIO("algorithm performs expected function")
+	{
+		GIVEN("an unordered array of size 100")
+		{
+			auto u_arr = utils::generate::unordered_array(100);
+
+			WHEN("custom sequential search, swapping values, is executed")
+			{
+				const auto algo_result =
+					selection_sort::custom_sort_creating_swapping_values(u_arr);
+
+				THEN("the algo results are valid")
+				{
+					CHECK(algo_result.is_search_algo == false);
+
+					//iterations <= iterations^2, due to O(n^2) complexity
+					CHECK(algo_result.iterations <=
+						(algo_result.iterations * algo_result.iterations));
+
+					//input container should now be sorted, as values were swapped in-place
+					const auto arr_is_sorted = std::is_sorted(u_arr.begin(), u_arr.end());
+					CHECK(arr_is_sorted == true);
 				}
 			}
 		}

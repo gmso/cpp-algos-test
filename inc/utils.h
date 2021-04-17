@@ -60,6 +60,8 @@ namespace utils
 		};
 
 		typedef std::map<std::string, Algo> Algo_Map;
+
+		typedef std::vector<utils::types::Int_number> Arr_nums;
 	}
 
 	namespace config

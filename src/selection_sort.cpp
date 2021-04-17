@@ -8,38 +8,44 @@ utils::types::Test_Results selection_sort::run()
 {
 	utils::types::Test_Results ret;
 
-	const std::vector<utils::types::Int_number> arrays_sizes = {
+	typedef utils::types::Arr_nums Array_nums;
+
+	const Array_nums arrays_sizes = {
 		utils::config::array_size_minimum,
 		utils::config::array_size_minimum * 5,
 		utils::config::array_size_minimum * 25
 	};
 
-	const std::vector<utils::types::Int_number> nums_to_find = {
+	const Array_nums nums_to_find = {
 		utils::generate::random(utils::config::array_size_minimum - 1),
 		utils::generate::random(utils::config::array_size_minimum * 5 - 1),
 		utils::generate::random(utils::config::array_size_minimum * 25 - 1)
 	};
 
+	const std::vector<std::string> algo_names = {
+		"[ Selection sort ] Custom algo, creating new container,",
+		"[ Selection sort ] Custom algo, swapping elements in container,"
+	};
+
+	std::vector<utils::types::Algo_result(*)(Array_nums&)> algo_functions = {
+		custom_sort_creating_new_container,
+		custom_sort_creating_swapping_values
+	};
+
 	for (size_t i = 0; i < arrays_sizes.size(); i++)
 	{
-		auto u_arr = utils::generate::unordered_array(arrays_sizes.at(i));
+		for (size_t a = 0; a < algo_names.size(); a++)
+		{
+			auto u_arr = utils::generate::unordered_array(arrays_sizes.at(i));
 
-		const auto algo_result_0 = test_algorithm(
-			custom_selection_sort,
-			"[ Selection sort ] Custom algorithm,",
-			(u_arr.size() * u_arr.size()),
-			u_arr
-		);
-		ret.push_back(utils::test::format_algo_result(algo_result_0));
-
-		/*const auto algo_result_1 = test_algorithm(
-			std_find,
-			"[ Sequential ] std::find,",
-			(data_array.size()),
-			data_array,
-			nums_to_find.at(i)
-		);
-		ret.push_back(utils::test::format_algo_result(algo_result_1));*/
+			const auto algo_result = test_algorithm(
+				algo_functions.at(a),
+				algo_names.at(a),
+				(u_arr.size() * u_arr.size()),
+				u_arr
+			);
+			ret.push_back(utils::test::format_algo_result(algo_result));
+		}
 
 		ret.push_back("\n");
 	}
@@ -47,14 +53,13 @@ utils::types::Test_Results selection_sort::run()
 	return ret;
 }
 
-utils::types::Algo_result selection_sort::custom_selection_sort(
+utils::types::Algo_result selection_sort::custom_sort_creating_new_container(
 	std::vector<utils::types::Int_number>& unsorted_arr)
 {
 	utils::types::Algo_result result;
 	result.iterations = 0;
 
-	typedef std::vector<utils::types::Int_number> U_Arr;
-	U_Arr new_arr;
+	utils::types::Arr_nums new_arr;
 
 	while (!(unsorted_arr.empty()))
 	{
@@ -62,7 +67,7 @@ utils::types::Algo_result selection_sort::custom_selection_sort(
 
 		const auto end = unsorted_arr.end();
 
-		for (U_Arr::iterator it = unsorted_arr.begin(); it != end; it++)
+		for (utils::types::Arr_nums::iterator it = unsorted_arr.begin(); it != end; it++)
 		{
 			if (*it < *min_num_it)
 			{
@@ -77,23 +82,29 @@ utils::types::Algo_result selection_sort::custom_selection_sort(
 
 	return result;
 }
-/*
-utils::types::Algo_result binary_search::std_find(
-	const std::vector<utils::types::Int_number>& arr,
-	utils::types::Int_number num_to_find)
+
+utils::types::Algo_result selection_sort::custom_sort_creating_swapping_values(
+	std::vector<utils::types::Int_number>& cont)
 {
 	utils::types::Algo_result result;
-	result.is_search_algo = true;
-	result.item_to_be_found = num_to_find;
+	result.iterations = 0;
 
-	auto it = std::find(arr.begin(), arr.end(), num_to_find);
-
-	if (it != arr.end())
+	typedef std::vector<utils::types::Int_number>::iterator Itr;
+	auto itr = cont.begin();
+	while (itr != cont.end())
 	{
-		result.item_found = true;
+		auto itr_min = itr;
+		for (Itr i = itr + 1; i != cont.end(); i++)
+		{
+			if (*i < *itr_min)
+			{
+				itr_min = i;
+			}
+			result.iterations++;
+		}
+		std::iter_swap(itr, itr_min);
+		itr++;
 	}
-	result.iterations = std::distance(arr.begin(), it) + 1;
 
 	return result;
 }
-*/
