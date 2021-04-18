@@ -13,12 +13,14 @@ set(SOURCE_FILES_MAIN
 set(SOURCE_FILES
     ./src/utils.cpp
 	./src/binary_search.cpp
-	./src/selection_sort.cpp)
+	./src/selection_sort.cpp
+	./src/quicksort.cpp)
 	
 set(HEADER_FILES 
     ./inc/utils.h
     ./inc/binary_search.h
-    ./inc/selection_sort.h)
+    ./inc/selection_sort.h
+    ./inc/quicksort.h)
 
 #Main executable
 add_executable(algo_test 
@@ -39,7 +41,8 @@ set(TEST_SOURCE_FILES
     ./test/src/doctest_main.cpp
     ./test/src/test_utils.cpp
     ./test/src/test_binary_search.cpp
-    ./test/src/test_selection_sort.cpp)
+    ./test/src/test_selection_sort.cpp
+    ./test/src/test_quicksort.cpp)
 	
 set(TEST_HEADER_FILES 
     ./test/inc/doctest.h)

@@ -245,6 +245,25 @@ namespace utils
 			return (result_with_time);
 		}
 
+		template<typename Algorithm, typename Iterator>
+		utils::types::Algo_result_with_time time_algorithm_sort(
+			Algorithm& algo_function, Iterator& it_begin, Iterator& it_end)
+		{
+			time::Timer timer;
+
+			types::Algo_result_with_time result_with_time;
+			result_with_time.result.is_search_algo = false;
+
+			timer.start();
+			result_with_time.result.iterations =
+				algo_function(it_begin, it_end, 0);
+			timer.stop();
+
+			result_with_time.time_run = timer.get_time_ms();
+
+			return (result_with_time);
+		}
+
 		template<typename Algorithm, typename Input_1, typename Input_2>
 		utils::types::Algo_result_with_time time_algorithm_search(
 			Algorithm& algo_function, Input_1& algo_input_1, Input_2& algo_input_2)

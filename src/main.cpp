@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "binary_search.h"
 #include "selection_sort.h"
+#include "quicksort.h"
 
 namespace app
 {
@@ -36,6 +37,10 @@ namespace app
 		algos.insert({
 			"1",
 			utils::types::Algo("Selection sort (O(n^2))",selection_sort::run) });
+
+		algos.insert({
+			"2",
+			utils::types::Algo("Quicksort (Average: O(n*log(n), Worse: O(n^2)))",quicksort::run) });
 
 		return algos;
 	}
