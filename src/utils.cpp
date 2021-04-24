@@ -90,3 +90,14 @@ std::string utils::test::format_algo_result(const utils::types::Algo_result_for_
 		search_algo_info.at(1)
 		);
 }
+
+bool utils::helpers::string_contains(std::string original, std::string substring)
+{
+	int pos = 0;
+	int index;
+	while ((index = original.find(substring, pos)) != std::string::npos)
+	{
+		return true;
+	}
+	return false;
+}

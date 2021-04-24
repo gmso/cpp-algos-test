@@ -6,14 +6,6 @@
 
 TEST_SUITE("utils")
 {
-	/*TEST_CASE("testing the factorial function")
-	{
-		CHECK(factorial(1) == 1);
-		CHECK(factorial(2) == 2);
-		CHECK(factorial(3) == 6);
-		CHECK(factorial(10) == 3628800);
-	}*/
-
 	SCENARIO("algo results structs are available")
 	{
 		GIVEN("An algo result for print is created with default values")
@@ -211,6 +203,45 @@ TEST_SUITE("utils")
 					//the specified time, we have to check that the duration
 					//is at least the desired one
 					CHECK(duration >= 200);
+				}
+			}
+		}
+	}
+
+	SCENARIO("test string contains helper function")
+	{
+		GIVEN("a set of phrases and loose words")
+		{
+			std::string phrase_1{ "ain't no sunshine when she's gone" };
+			std::string phrase_2{ "en un lugar de la mancha, de cuyo nombre no quiero acordarme" };
+
+			std::string word_1{ "sun" };
+			std::string word_2{ "gone" };
+			std::string word_3{ "mancha" };
+			std::string word_4{ "no" };
+			std::string word_5{ "sancho" };
+
+			WHEN("words are present in phrases")
+			{
+				THEN("substrings are contained in string")
+				{
+					CHECK(utils::helpers::string_contains(phrase_1, word_1) == true);
+					CHECK(utils::helpers::string_contains(phrase_1, word_2) == true);
+					CHECK(utils::helpers::string_contains(phrase_2, word_3) == true);
+					CHECK(utils::helpers::string_contains(phrase_1, word_4) == true);
+					CHECK(utils::helpers::string_contains(phrase_2, word_4) == true);
+				}
+			}
+
+			WHEN("words are NOT present in phrases")
+			{
+				THEN("substrings are NOT contained in string")
+				{
+					CHECK(utils::helpers::string_contains(phrase_2, word_1) == false);
+					CHECK(utils::helpers::string_contains(phrase_2, word_2) == false);
+					CHECK(utils::helpers::string_contains(phrase_1, word_3) == false);
+					CHECK(utils::helpers::string_contains(phrase_1, word_5) == false);
+					CHECK(utils::helpers::string_contains(phrase_2, word_5) == false);
 				}
 			}
 		}

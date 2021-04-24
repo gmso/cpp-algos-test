@@ -4,9 +4,6 @@
 #include <vector>
 
 #include "utils.h"
-#include "binary_search.h"
-#include "selection_sort.h"
-#include "quicksort.h"
 #include "app.h"
 
 int main(int argc, char* argv[])
@@ -18,17 +15,7 @@ int main(int argc, char* argv[])
 	}
 	catch (const std::exception& e)
 	{
-		auto string_contains = [](std::string original, std::string substring) {
-			int pos = 0;
-			int index;
-			while ((index = original.find(substring, pos)) != std::string::npos)
-			{
-				return true;
-			}
-			return false;
-		};
-
-		if (string_contains(std::string{ e.what() }, "bad allocation"))
+		if (utils::helpers::string_contains(std::string{ e.what() }, "bad allocation"))
 		{
 			utils::config::reduce_array_size_maximum_in_config_file();
 

@@ -2,14 +2,11 @@
 
 #include "doctest.h"
 
-//namespace app_main
-//{
-//#include "main.cpp"
-//}
+#include "app.cpp"
 
 TEST_SUITE("app")
 {
-	SCENARIO("program execution returns help, when requested")
+	SCENARIO("app execution returns help, when requested")
 	{
 		GIVEN("the command argument \"help\"")
 		{

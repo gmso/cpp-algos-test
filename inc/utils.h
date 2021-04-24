@@ -283,4 +283,9 @@ namespace utils
 		std::string format_algo_result(
 			const utils::types::Algo_result_for_print& res_for_print);
 	}
+
+	namespace helpers
+	{
+		bool string_contains(std::string original, std::string substring);
+	}
 }
